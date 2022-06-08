@@ -5,21 +5,21 @@ import { Template } from "../components/templates";
 
 const Home: NextPage = () => (
   <Template title="test">
-    <TsMainRoot>
-      <TsParagraph>react初心者向け講座</TsParagraph>
-    </TsMainRoot>
+    <StMainRoot>
+      <StMainParagraph>react初心者向け講座</StMainParagraph>
+    </StMainRoot>
   </Template>
 );
 
 export default Home;
 
-const TsMainRoot = styled.div`
+const StMainRoot = styled.div`
   grid-area: b;
   background-color: rgb(245 245 245);
   margin: 20px 10px 0;
 `;
 
-const TsParagraph = styled.p`
+const StMainParagraph = styled.p`
   background-color: rgb(255 255 255);
   padding: 15px 10px;
   color: rgb(0, 0, 0);
