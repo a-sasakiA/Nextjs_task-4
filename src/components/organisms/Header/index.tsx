@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Header: FC = () => {
   return (
     <StHeaderRoot>
-      <p>sky ticket</p>
+      <h1>react初心者向け講座</h1>
     </StHeaderRoot>
   );
 };
