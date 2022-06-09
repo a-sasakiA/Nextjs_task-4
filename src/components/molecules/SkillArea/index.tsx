@@ -40,8 +40,12 @@ export const SkillArea: FC<Props> = ({
       <StSelectedTagAreaWrapper>
         <StSelectedTagArea>
           {skillTag.map((t) => (
-            <StTag key={t} onClick={() => handleClearSkillTag(t)}>
+            <StTag key={t}>
               {t}
+              <StDelateButton onClick={() => handleClearSkillTag(t)}>
+                {" "}
+                X{" "}
+              </StDelateButton>
             </StTag>
           ))}
         </StSelectedTagArea>
@@ -83,7 +87,9 @@ export const SkillArea: FC<Props> = ({
   );
 };
 
-const StWrapper = styled.div``;
+const StWrapper = styled.div`
+  margin-bottom: 10px;
+`;
 const StSelectedTagAreaWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -110,14 +116,13 @@ const StSelectCategoryArea = styled.div`
 
 const StSelectedSkillArea = styled.ul`
   display: flex;
+  flex-direction: column;
 `;
 
 const StSelectedSkillText = styled.li`
   display: flex;
 `;
 
-const StDelateButton = styled.div`
-  margin-right: 20px;
-  border: 1px solid;
-  padding: 10px 20px;
+const StDelateButton = styled.span`
+  cursor: pointer;
 `;

@@ -7,10 +7,9 @@ import { TopContent } from "../organisms/TopContent";
 
 type Props = {
   title: string;
-  children: ReactNode;
 };
 
-export const Template: FC<Props> = ({ title, children }) => (
+export const Template: FC<Props> = ({ title }) => (
   <>
     <Head>
       <title>{title}</title>
@@ -19,7 +18,6 @@ export const Template: FC<Props> = ({ title, children }) => (
     </Head>
     <Header></Header>
     <TopContent />
-    {children}
     <Footer></Footer>
   </>
 );

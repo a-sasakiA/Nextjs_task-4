@@ -9,22 +9,22 @@ import {
 } from "src/components/molecules/SkillArea";
 import { TagArea, TagList } from "src/components/molecules/TagArea";
 import styled from "styled-components";
-import { useCount } from "./hooks";
+import { useCount } from "./hooks/hooks";
+import useCategory from "./hooks/useCategory";
+import { useSkill } from "./hooks/useSkill";
 
 export const TopContent: FC = () => {
   const { count, handleIncrement, handleDecrement, resetCount } = useCount();
-
-  // カテゴリリスト
-  const [category, setCategory] = useState<CategoryList[]>([]);
-  // 選択カテゴリ
-  const [currentCategory, setCurrentCategory] = useState<CurrentCategory>({});
-  // 選択カテゴリ要素ID
-  let optionId: string;
-
-  // スキルリスト
-  const [skill, setSkill] = useState<SkillList[]>([]);
-  // スキルリスト:タグ
-  const [skillTag, setSkillTag] = useState<string[]>([]);
+  const { category, currentCategory, handleChangeCategory, getCategory } =
+    useCategory();
+  const {
+    skill,
+    skillTag,
+    handleSwitchSkillTag,
+    handleClearSkillTag,
+    setSkillTag,
+    getSkill,
+  } = useSkill(currentCategory);
 
   // タグ
   const [tag, setTag] = useState<string[]>([]);
@@ -38,27 +38,6 @@ export const TopContent: FC = () => {
     setTag([...tag, value]);
   };
 
-  const handleChangeCategory = (value: string) => {
-    const options = document.querySelectorAll("option");
-    options.forEach((value, index) => {
-      console.log(options[index].selected);
-      if (options[index].selected === true) {
-        optionId = options[index].id;
-      }
-    });
-    setCurrentCategory({ value, optionId });
-  };
-  const handleClearSkillTag = (value: string) => {
-    setSkillTag(skillTag.filter((tag) => tag !== value));
-  };
-  const handleSwitchSkillTag = (value: string) => {
-    if (skillTag.indexOf(value) >= 0) {
-      handleClearSkillTag(value);
-      return;
-    }
-    setSkillTag([...skillTag, value]);
-  };
-
   useEffect(() => {
     const getTag = async () => {
       const res = await fetch("/api/tag");
@@ -68,38 +47,10 @@ export const TopContent: FC = () => {
     };
     getTag();
 
-    const getCategory = async () => {
-      // category Api
-      try {
-        const res_category = await fetch("/api/skills/category");
-        const data_category = await res_category.json();
-
-        setCategory([...data_category]);
-      } catch (error) {
-        console.log(`Error Message: ${error}`);
-      }
-    };
     getCategory();
   }, []);
 
   useEffect(() => {
-    const getSkill = async () => {
-      let query = "skill";
-
-      // Skill Api
-      try {
-        if (currentCategory.optionId >= 0) {
-          query += `?id=${currentCategory.optionId}`;
-        }
-
-        const res_skills = await fetch(`/api/skills/${query}`);
-        const data_skills = await res_skills.json();
-
-        setSkill([...data_skills]);
-      } catch (error) {
-        console.log(`Error Message: ${error}`);
-      }
-    };
     getSkill();
   }, [currentCategory]);
 

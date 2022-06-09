@@ -3,6 +3,6 @@ import styled from "styled-components";
 
 import { Template } from "../components/templates";
 
-const Home: NextPage = () => <Template title="test">test</Template>;
+const Home: NextPage = () => <Template title="test"></Template>;
 
 export default Home;
