@@ -1,25 +1,26 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import styled from "styled-components";
 
 type Props = {
   count: number;
   handleIncrement: () => void;
   handleDecrement: () => void;
+  resetCount: () => void;
 };
 
-export const Counter: FC<Props> = ({
-  count,
-  handleIncrement,
-  handleDecrement,
-}) => {
-  return (
-    <StCountWrapper>
-      <StButton onClick={handleDecrement}> - </StButton>
-      <div>{count}</div>
-      <StButton onClick={handleIncrement}> + </StButton>
-    </StCountWrapper>
-  );
-};
+export const Counter: FC<Props> = memo(
+  ({ count, handleIncrement, handleDecrement, resetCount }) => {
+    console.log("------------rerender component(Counter)----------");
+    return (
+      <StCountWrapper>
+        <StButton onClick={handleDecrement}> - </StButton>
+        <div>{count}</div>
+        <StButton onClick={handleIncrement}> + </StButton>
+        <StButton onClick={resetCount}> X </StButton>
+      </StCountWrapper>
+    );
+  }
+);
 
 const StCountWrapper = styled.div`
   padding: 8px 0;
