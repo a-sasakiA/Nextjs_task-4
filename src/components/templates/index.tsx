@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { FC, ReactNode } from "react";
+import { FC, ReactElement, ReactNode } from "react";
 import { Header } from "src/components/organisms/Header";
 import { Footer } from "src/components/organisms/Footer";
 import styled from "styled-components";
@@ -7,9 +7,10 @@ import { TopContent } from "../organisms/TopContent";
 
 type Props = {
   title: string;
+  children?: ReactNode;
 };
 
-export const Template: FC<Props> = ({ title }) => (
+export const Template: FC<Props> = ({ title, children }) => (
   <>
     <Head>
       <title>{title}</title>
@@ -17,7 +18,14 @@ export const Template: FC<Props> = ({ title }) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <Header></Header>
-    <TopContent />
+    {children ? (
+      <>
+        <TopContent />
+        <div>{children}</div>
+      </>
+    ) : (
+      <TopContent />
+    )}
     <Footer></Footer>
   </>
 );

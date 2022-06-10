@@ -16,7 +16,6 @@ export const useCategory = () => {
   const handleChangeCategory = (value: string) => {
     const options = document.querySelectorAll("option");
     options.forEach((value, index) => {
-      console.log(options[index].selected);
       if (options[index].selected === true) {
         optionId = options[index].id;
       }

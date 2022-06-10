@@ -1,17 +1,21 @@
 import { useRouter } from "next/router";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log(req.query);
+export type Category = {
+  id: number;
+  value: string;
+};
 
+export type Skill = {
+  id: number;
+  categoryId: number;
+  value: string;
+};
+
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { skills, id } = req.query;
 
   if (skills === "category") {
-    type Category = {
-      id: number;
-      value: string;
-    };
-
     const data: Category[] = [
       {
         id: 0,
@@ -25,12 +29,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).json(data);
   } else if (skills === "skill") {
-    type Skill = {
-      id: number;
-      categoryId: number;
-      value: string;
-    };
-
     let skill: Skill[];
 
     switch (id) {
